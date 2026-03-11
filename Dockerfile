@@ -6,7 +6,7 @@ COPY package*.json ./
 RUN npm ci --legacy-peer-deps
 
 COPY . .
-ARG APP_NAME=breshub-ui
+ARG APP_NAME=pecunia_dashboard
 RUN npx nx build "$APP_NAME" --configuration=production --skip-nx-cache
 
 # Robust: finde das richtige Output-Verzeichnis (browser/ vs. flat) und sammle Artefakte in __html
@@ -28,7 +28,7 @@ FROM nginx:stable-alpine
 # Verhindert die Nginx-Willkommensseite
 RUN rm -rf /usr/share/nginx/html/*
 
-COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Kopiere die zuvor gesammelten Artefakte
 COPY --from=build /workspace/__html/ /usr/share/nginx/html/
