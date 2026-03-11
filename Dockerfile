@@ -6,8 +6,8 @@ COPY package*.json ./
 RUN npm ci --legacy-peer-deps
 
 COPY . .
-ARG APP_NAME=pecunia_dashboard
-RUN npm run build "$APP_NAME" --configuration=production
+ARG APP_NAME=pecunia-dashboard
+RUN npm run build --configuration=production
 # Robust: finde das richtige Output-Verzeichnis (browser/ vs. flat) und sammle Artefakte in __html
 RUN set -eux; \
     mkdir -p /workspace/__html; \
