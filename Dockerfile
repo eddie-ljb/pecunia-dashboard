@@ -1,26 +1,37 @@
-# Stage 1: Angular bauen
-FROM node:20-alpine AS build
+# ---- Stage 1: Build Angular ----
+FROM node:20 AS build
+WORKDIR /workspace
 
-WORKDIR /app
+COPY package*.json ./
+RUN npm ci --legacy-peer-deps
 
-# Dependencies zuerst kopieren (Cache für schnellere Builds)
-COPY package.json package-lock.json* ./
-RUN npm ci
-
-# Restlichen Code kopieren und bauen
 COPY . .
-RUN npm run build
+ARG APP_NAME=breshub-ui
+RUN npx nx build "$APP_NAME" --configuration=production --skip-nx-cache
 
-# Stage 2: Mit Nginx ausliefern
-FROM nginx:1.25-alpine
+# Robust: finde das richtige Output-Verzeichnis (browser/ vs. flat) und sammle Artefakte in __html
+RUN set -eux; \
+    mkdir -p /workspace/__html; \
+    if [ -d "dist/apps/${APP_NAME}/browser" ]; then \
+      cp -r "dist/apps/${APP_NAME}/browser/." /workspace/__html/; \
+    elif [ -f "dist/apps/${APP_NAME}/index.html" ]; then \
+      cp -r "dist/apps/${APP_NAME}/." /workspace/__html/; \
+    else \
+      echo "❌ Konnte kein index.html finden unter dist/apps/${APP_NAME}/(browser/)?"; \
+      ls -R "dist/apps/${APP_NAME}" || true; \
+      exit 1; \
+    fi
 
-# Optional: eigene Nginx-Konfiguration für SPA-Routing
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# ---- Stage 2: Nginx Static Server ----
+FROM nginx:stable-alpine
 
-# Angular-Build ins Nginx-HTML-Verzeichnis kopieren
-# Passe "pecunia-dashboard" an deinen tatsächlichen Dist-Ordnernamen an
-COPY --from=build /dist/pecunia-dashboard/browser /usr/share/nginx/html
+# Verhindert die Nginx-Willkommensseite
+RUN rm -rf /usr/share/nginx/html/*
+
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Kopiere die zuvor gesammelten Artefakte
+COPY --from=build /workspace/__html/ /usr/share/nginx/html/
 
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]
