@@ -7,8 +7,7 @@ RUN npm ci --legacy-peer-deps
 
 COPY . .
 ARG APP_NAME=pecunia_dashboard
-RUN npx nx build "$APP_NAME" --configuration=production --skip-nx-cache
-
+RUN npm run build "$APP_NAME" --configuration=production
 # Robust: finde das richtige Output-Verzeichnis (browser/ vs. flat) und sammle Artefakte in __html
 RUN set -eux; \
     mkdir -p /workspace/__html; \
