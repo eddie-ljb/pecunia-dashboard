@@ -1,0 +1,33 @@
+<div class="laws-page">
+  <header class="laws-header">
+    <h1>Gesetze Pecunias</h1>
+    <p class="subtitle">
+      Verfassung, Finanzordnung und Regelwerk für alle Städte und Bürger.
+    </p>
+  </header>
+
+  <section class="laws-list">
+    <article class="law-card" *ngFor="let law of laws">
+      <div class="law-main">
+        <div>
+          <h2 class="law-title">
+            {{ law.title }}
+            <span class="law-category">{{ law.category }}</span>
+          </h2>
+          <p class="law-meta">
+            Gültig seit <span>{{ law.effectiveSince }}</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="law-actions">
+        <button class="btn btn-primary" (click)="openLaw(law)">
+          Ansehen
+        </button>
+        <button class="btn btn-outline" (click)="downloadLaw(law)">
+          Download
+        </button>
+      </div>
+    </article>
+  </section>
+</div>

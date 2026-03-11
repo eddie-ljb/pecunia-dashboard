@@ -1,0 +1,62 @@
+<div class="overview-page">
+  <header class="overview-header">
+    <h1>Pecunia Dashboard</h1>
+    <p class="subtitle">
+      Überblick über Städte, Projekte, Gesetze und Bevölkerung der Nation
+      Pecunia.
+    </p>
+  </header>
+
+  <section class="mini-stats">
+    <article class="mini-card" *ngFor="let stat of miniStats">
+      <div class="mini-label">{{ stat.label }}</div>
+      <div class="mini-value">{{ stat.value }}</div>
+      <div class="mini-desc">{{ stat.description }}</div>
+    </article>
+  </section>
+
+  <section class="overview-main">
+    <div class="panel panel-laws">
+      <div class="panel-header">
+        <h2>Neueste Gesetze</h2>
+        <a routerLink="/laws" class="panel-link">Alle Gesetze</a>
+      </div>
+
+      <ul class="panel-list">
+        <li class="panel-item" *ngFor="let law of recentLaws">
+          <div class="item-main">
+            <span class="item-title">{{ law.title }}</span>
+            <span class="item-category">{{ law.category }}</span>
+          </div>
+          <div class="item-meta">
+            Gültig seit <span>{{ law.effectiveSince }}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="panel panel-projects">
+      <div class="panel-header">
+        <h2>Aktuelle Projekte</h2>
+        <a routerLink="/projects" class="panel-link">Alle Projekte</a>
+      </div>
+
+      <ul class="panel-list">
+        <li class="panel-item" *ngFor="let project of recentProjects">
+          <div class="item-main">
+            <span class="item-title">{{ project.title }}</span>
+            <span class="item-city">{{ project.city }}</span>
+          </div>
+          <div class="item-meta">
+            <span
+              class="item-status"
+              [ngClass]="getProjectStatusClass(project.status)"
+            >
+              {{ project.status | titlecase }}
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+</div>

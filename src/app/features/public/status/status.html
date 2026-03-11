@@ -1,0 +1,31 @@
+<div class="status-page">
+  <header class="status-header">
+    <h1>Status von Pecunia</h1>
+    <p class="subtitle">
+      Überblick über Server, Nation, Projekte und Bevölkerung der Nation Pecunia.
+    </p>
+  </header>
+
+  <section class="status-grid">
+    <article
+      class="status-card"
+      *ngFor="let card of statusCards"
+      [ngClass]="card.level"
+    >
+      <div class="status-card-header">
+        <div>
+          <h2 class="status-title">{{ card.title }}</h2>
+          <p class="status-value">{{ card.value }}</p>
+        </div>
+
+        <span class="status-badge" *ngIf="card.badge">
+          {{ card.badge }}
+        </span>
+      </div>
+
+      <p class="status-description">
+        {{ card.description }}
+      </p>
+    </article>
+  </section>
+</div>

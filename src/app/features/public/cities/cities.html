@@ -1,0 +1,42 @@
+<div class="cities-page">
+  <header class="cities-header">
+    <h1>Städte Pecunias</h1>
+    <p class="subtitle">
+      Übersicht aller Städte der Nation Pecunia – mit Kerlsruhe als Hauptstadt.
+    </p>
+  </header>
+
+  <section class="cities-grid">
+    <article class="city-card" *ngFor="let city of cities">
+      <div class="city-card-header">
+        <div>
+          <h2 class="city-name">
+            {{ city.name }}
+            <span class="city-role" [ngClass]="city.role.toLowerCase()">
+              {{ city.role }}
+            </span>
+          </h2>
+          <p class="city-meta">
+            Bürgermeister: <span>{{ city.mayor }}</span> · Einwohner:
+            <span>{{ city.population }}</span>
+          </p>
+        </div>
+      </div>
+
+      <p class="city-description">
+        {{ city.description }}
+      </p>
+
+      <div class="city-footer">
+        <div class="city-info">
+          <span class="label">Koordinaten</span>
+          <span class="value">{{ city.coordinates }}</span>
+        </div>
+        <div class="city-info">
+          <span class="label">Gegründet</span>
+          <span class="value">{{ city.foundedAt }}</span>
+        </div>
+      </div>
+    </article>
+  </section>
+</div>

@@ -1,0 +1,131 @@
+$pecunia-black: #090909;
+$pecunia-dark: #141414;
+$pecunia-red: #b2152a;
+$pecunia-orange: #ff9b3b;
+$pecunia-text: #f5f5f5;
+$pecunia-text-muted: #b0b0b0;
+
+.laws-page {
+  padding: 2.5rem 8vw 3rem;
+  background: radial-gradient(circle at top, #1b1b1b 0, $pecunia-black 55%);
+  min-height: 100vh;
+  color: $pecunia-text;
+
+  @media (max-width: 900px) {
+    padding: 2rem 5vw 2.5rem;
+  }
+}
+
+.laws-header {
+  max-width: 52rem;
+  margin: 0 auto 2rem;
+
+  h1 {
+    font-size: clamp(1.9rem, 2.3vw, 2.4rem);
+    margin: 0 0 0.4rem;
+  }
+
+  .subtitle {
+    margin: 0;
+    color: $pecunia-text-muted;
+  }
+}
+
+.laws-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.law-card {
+  background: linear-gradient(135deg, #1e1e1e, #151515);
+  border-radius: 16px;
+  padding: 1.2rem 1.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  @media (max-width: 600px) {
+    padding: 1rem 1rem;
+  }
+}
+
+.law-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.law-title {
+  margin: 0 0 0.3rem;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.law-category {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(0, 0, 0, 0.45);
+  color: $pecunia-orange;
+}
+
+.law-meta {
+  margin: 0;
+  font-size: 0.85rem;
+  color: $pecunia-text-muted;
+
+  span {
+    color: $pecunia-text;
+  }
+}
+
+.law-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+// Buttons wiederverwenden wie auf Home/Cities
+.btn {
+  border-radius: 999px;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.85rem;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.15s ease;
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, $pecunia-orange, #ffb35e);
+  color: #211000;
+  box-shadow: 0 0 18px rgba(255, 155, 59, 0.45);
+
+  &:hover {
+    box-shadow: 0 0 26px rgba(255, 155, 59, 0.65);
+  }
+}
+
+.btn-outline {
+  background: transparent;
+  color: $pecunia-text;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+}

@@ -1,0 +1,45 @@
+<div class="projects-page">
+  <header class="projects-header">
+    <h1>Projekte Pecunias</h1>
+    <p class="subtitle">
+      Laufende, geplante und abgeschlossene Projekte in Kerlsruhe und den
+      Städten der Nation.
+    </p>
+  </header>
+
+  <section class="projects-grid">
+    <article
+      class="project-card"
+      *ngFor="let project of projects"
+      [ngClass]="getStatusClass(project.status)"
+    >
+      <div class="project-header">
+        <div>
+          <h2 class="project-title">{{ project.title }}</h2>
+          <p class="project-city">
+            Stadt: <span>{{ project.city }}</span>
+          </p>
+        </div>
+
+        <span class="project-status">
+          {{ project.status | titlecase }}
+        </span>
+      </div>
+
+      <p class="project-description">
+        {{ project.description }}
+      </p>
+
+      <div class="project-footer">
+        <div class="project-dates">
+          <span class="label">Start</span>
+          <span class="value">{{ project.startsAt }}</span>
+        </div>
+        <div class="project-dates" *ngIf="project.endsAt">
+          <span class="label">Abschluss</span>
+          <span class="value">{{ project.endsAt }}</span>
+        </div>
+      </div>
+    </article>
+  </section>
+</div>
